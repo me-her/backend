@@ -4,7 +4,11 @@ const cors = require("cors");
 const minify = require("html-minifier").minify;
 
 app.use(express.json({ limit: "50mb" }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 const port = process.env.PORT || 3000;
 
 function processData(json_data) {
