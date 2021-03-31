@@ -4,7 +4,11 @@ const cors = require("cors");
 const minify = require("html-minifier").minify;
 
 app.use(express.json({ limit: "50mb" }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 const port = process.env.PORT || 3000;
 
 function processData(json_data) {
@@ -158,14 +162,6 @@ function generateContactsHtml(data) {
   let minifyHtml = minify(finalHtml);
   return minifyHtml;
 }
-
-app.use((req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-});
 
 app.post("/data", (req, res) => {
   let json_data = req.body;
